@@ -32,17 +32,20 @@ public class Drunkard {
 
         while (!(checkSizeZero(player1Cards, player2Cards))) {
 
-            int card1 = player1Cards.poll() % PARS_TOTAL_COUNT;
-            int card2 = player2Cards.poll() % PARS_TOTAL_COUNT;
+            int card1 = player1Cards.poll();
+            int card2 = player2Cards.poll();
 
             System.out.print("Игрок №1 карта: " + toString(card1) + "; ");
             System.out.print("Игрок №2 карта: " + toString(card2) + ". ");
 
-            if (card1 > card2 || (card1 == 0 && card2 == 9)) {
+            if (((card1 % PARS_TOTAL_COUNT > card2 % PARS_TOTAL_COUNT) &&
+                    !(checkSixAndAce(card2, card1))) ||
+                    checkSixAndAce(card1, card2)) {
+
                 System.out.print("Выиграл игрок 1! ");
                 player1Cards.offer(card1);
                 player1Cards.offer(card2);
-            } else if (card1 == card2) {
+            } else if (card1 % PARS_TOTAL_COUNT == card2 % PARS_TOTAL_COUNT) {
                 player1Cards.offer(card1);
                 player2Cards.offer(card2);
             } else {
@@ -55,6 +58,12 @@ public class Drunkard {
                     "у игрока №2 " + (player2Cards.size()));
         }
 
+    }
+
+    private static boolean checkSixAndAce(int card1, int card2) {
+        if (card1 % PARS_TOTAL_COUNT == 0 && card2 % PARS_TOTAL_COUNT == 8) {
+            return true;
+        } return false;
     }
 
     private static boolean checkSizeZero(Queue queue1, Queue queue2) {
