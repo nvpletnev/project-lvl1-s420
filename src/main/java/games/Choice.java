@@ -6,16 +6,27 @@ import java.io.IOException;
  * Created by nikolaypletnev on 28.09.18.
  */
 public class Choice {
-    public static void main(String... ___) throws IOException {
-        System.out.println("Выберите игру:\n1 - \"однорукий бандит\", 2 - \"пьяница\"");
+    static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
-        switch (System.in.read()) {
+    public static void main(String... ___) throws IOException {
+        System.out.println("Выберите игру:\n1 - \"однорукий бандит\", 2 - \"пьяница\", 3 - \"очко\"");
+
+        switch (getCharacterFromUser()) {
             case '1':
                 Slot.main(); break;
             case '2':
                 Drunkard.main(); break;
+            case '3':
+                BlackJack.main(); break;
             default:
                 System.out.println("Игры с таким номером нет!");
         }
+    }
+
+    static char getCharacterFromUser() throws IOException {
+        byte[] input = new byte[1 + LINE_SEPARATOR.length()];
+        if (System.in.read(input) != input.length)
+            throw new RuntimeException("Пользователь ввёл недостаточное кол-во символов");
+        return (char) input[0];
     }
 }
