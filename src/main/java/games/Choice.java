@@ -1,15 +1,20 @@
 package games;
 
+import org.slf4j.Logger;
+
 import java.io.IOException;
 
 /**
  * Created by nikolaypletnev on 28.09.18.
  */
 public class Choice {
+
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(Choice.class);
+
     static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
     public static void main(String... ___) throws IOException {
-        System.out.println("Выберите игру:\n1 - \"однорукий бандит\", 2 - \"пьяница\", 3 - \"очко\"");
+        log.info("Выберите игру:\n1 - \"однорукий бандит\", 2 - \"пьяница\", 3 - \"очко\"");
 
         switch (getCharacterFromUser()) {
             case '1':
@@ -19,7 +24,7 @@ public class Choice {
             case '3':
                 BlackJack.main(); break;
             default:
-                System.out.println("Игры с таким номером нет!");
+                log.info("Игры с таким номером нет!");
         }
     }
 
