@@ -54,11 +54,13 @@ public class BlackJack {
                     getFinalSum(0), getFinalSum(1));
 
             if (getFinalSum(0) > getFinalSum(1)) {
-                log.info("Вы выиграли раунд! Получаете 10$");
+                log.info("Вы выиграли раунд! Получаете 10$\n");
                 playersMoney[0] += 10;
                 playersMoney[1] -= 10;
-            } else {
-               log.info("Вы проиграли раунд! Теряете 10$");
+            }else if (getFinalSum(0) == getFinalSum(1)) {
+                log.info("Ничья!\n");
+            }else {
+               log.info("Вы проиграли раунд! Теряете 10$\n");
                 playersMoney[0] -= 10;
                 playersMoney[1] += 10;
             }
@@ -87,7 +89,7 @@ public class BlackJack {
     }
 
     private static void initRound() {
-        log.info("\nУ Вас {}$, у компьютера - {}$. Начинаем новый раунд!", playersMoney[0], playersMoney[1]);
+        log.info("У Вас {}$, у компьютера - {}$. Начинаем новый раунд!", playersMoney[0], playersMoney[1]);
         cards = CardUtils.getShaffledCards();
         playersCards = new int[2][MAX_CARDS_COUNT];
         playersCursors = new int[]{0, 0};
