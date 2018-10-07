@@ -27,24 +27,16 @@ public class BlackJack {
 
             initRound();
 
-            log.info("Вам выпала карта {}", CardUtils.toString(addCard2Player(0)));
-            log.info("Вам выпала карта {}", CardUtils.toString(addCard2Player(0)));
-
             do {
-                if (confirm("Берем еще?") ) {
+                if (cursor < 2 || confirm("Берем еще?") ) {
                     log.info("Вам выпала карта {}", CardUtils.toString(addCard2Player(0)));
                 } else break;
             } while (sum(0) < 20);
 
             //ход компьютера
-            log.info("Компьютеру выпала карта {}", CardUtils.toString(addCard2Player(1)));
-            log.info("Компьютеру выпала карта {}", CardUtils.toString(addCard2Player(1)));
-
             while (sum(1) < 17 ) {
-                log.info("Компьютер решил взять ещё и ему выпала карта {}", CardUtils.toString(addCard2Player(1)));
+                log.info("Компьютеру выпала карта {}", CardUtils.toString(addCard2Player(1)));
             }
-
-
 
             log.info("Сумма ваших очков - {}, компьютера - {}\n",
                     getFinalSum(0), getFinalSum(1));
@@ -89,6 +81,7 @@ public class BlackJack {
         cards = CardUtils.getShaffledCards();
         playersCards = new int[2][MAX_CARDS_COUNT];
         playersCursors = new int[]{0, 0};
+        cursor = 0;
     }
 
     private static int addCard2Player(int player) {
@@ -103,10 +96,6 @@ public class BlackJack {
         return sum;
     }
 
-    /**
-     * сделайте метод, который вызывал бы метод sum и возвращал бы кол-во очков
-     * только если оно не превышает максимального значения - 21, в ином случае возвращал бы 0:
-     * */
     static int getFinalSum(int player) {
         if (sum(player) <= MAX_VALUE)
             return sum(player);
