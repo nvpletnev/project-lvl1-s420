@@ -30,25 +30,21 @@ public class BlackJack {
             log.info("Вам выпала карта {}", CardUtils.toString(addCard2Player(0)));
             log.info("Вам выпала карта {}", CardUtils.toString(addCard2Player(0)));
 
-            for (int i = 0; i < 5; i++) {
-                if (sum(0) < 20) {
-                    if (confirm("Берем еще? ")) {
-                        log.info("Вам выпала карта {}", CardUtils.toString(addCard2Player(0)));
-                    } else break;
-                }
-            }
+            do {
+                if (confirm("Берем еще?") ) {
+                    log.info("Вам выпала карта {}", CardUtils.toString(addCard2Player(0)));
+                } else break;
+            } while (sum(0) < 20);
 
             //ход компьютера
             log.info("Компьютеру выпала карта {}", CardUtils.toString(addCard2Player(1)));
             log.info("Компьютеру выпала карта {}", CardUtils.toString(addCard2Player(1)));
 
-            for (int i = 0; i < 5; i++) {
-                if (sum(1) < 17 ) {
-                    log.info("Компьютер решил взять ещё и ему выпала карта {}",
-                            CardUtils.toString(addCard2Player(1)));
-                }
-
+            while (sum(1) < 17 ) {
+                log.info("Компьютер решил взять ещё и ему выпала карта {}", CardUtils.toString(addCard2Player(1)));
             }
+
+
 
             log.info("Сумма ваших очков - {}, компьютера - {}\n",
                     getFinalSum(0), getFinalSum(1));
@@ -95,22 +91,11 @@ public class BlackJack {
         playersCursors = new int[]{0, 0};
     }
 
-    /**
-     * Реализуйте метод, извлекающий следующую карту из колоды и помещающий её в стопку карт
-     * указанного игрока.
-     * Он может иметь следующую сигнатуру:
-     * */
     private static int addCard2Player(int player) {
-        // todo: реализуйте!
         return playersCards[player][playersCursors[player]++] = cards[cursor++];
     }
 
-    /**
-     * Теперь реализуйте метод, который будет суммировать очки игрока.
-     * Он может иметь следующую сигнатуру:
-     * */
     static int sum(int player) {
-        // todo: реализуйте!
         int sum = 0;
         for (int i = 0; i < playersCursors[player]; i++) {
             sum += value(playersCards[player][i]);
@@ -123,14 +108,13 @@ public class BlackJack {
      * только если оно не превышает максимального значения - 21, в ином случае возвращал бы 0:
      * */
     static int getFinalSum(int player) {
-        // todo: реализуйте!
         if (sum(player) <= MAX_VALUE)
             return sum(player);
         else return 0;
     }
 
     static boolean confirm(String message) throws IOException {
-       log.info(message + " \"Y\" - Да, {любой другой символ} - нет (Что бы выйти из игры, нажмите Ctrl + C)");
+       log.info("{} \"Y\" - Да, (любой другой символ) - нет (Что бы выйти из игры, нажмите Ctrl + C)", message);
         switch (getCharacterFromUser()) {
             case 'Y':
             case 'y': return true;
