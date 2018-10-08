@@ -28,10 +28,8 @@ public class BlackJack {
             initRound();
 
             do {
-                if (cursor < 2 || confirm("Берем еще?") ) {
-                    log.info("Вам выпала карта {}", CardUtils.toString(addCard2Player(0)));
-                } else break;
-            } while (sum(0) < 20);
+                log.info("Вам выпала карта {}", CardUtils.toString(addCard2Player(0)));
+            } while (sum(0) < 20 && (cursor < 2 || confirm("Берем еще?")));
 
             //ход компьютера
             while (sum(1) < 17 ) {
